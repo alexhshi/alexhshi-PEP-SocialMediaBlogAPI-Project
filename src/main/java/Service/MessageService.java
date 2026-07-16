@@ -34,9 +34,13 @@ public class MessageService {
     return this.msgDAO.deleteMessageByID(id);
   }
   public Message updateMessageByID(int id, String newMsgTxt) {
-    Message origMsg = this.msgDAO.getMessageByID(id);
-    if (origMsg != null && origMsg.getMessage_text().length() > 0 && origMsg.getMessage_text().length() <= 255) {
-      return this.msgDAO.updateMessagesByID(id, newMsgTxt);
+    Message msg = this.msgDAO.getMessageByID(id);
+    if (msg != null && msg.getMessage_text().length() > 0 && msg.getMessage_text().length() <= 255) {
+      this.msgDAO.updateMessagesByID(id, newMsgTxt);
+      msg.setMessage_text(newMsgTxt);
+      return msg;
+    } else {
+      return null;
     }
   }
 }

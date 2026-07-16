@@ -107,7 +107,7 @@ public class MessageDAO {
     return null;
   }
 
-  public Message updateMessagesByID(int id, String newMsgTxt) {
+  public void updateMessagesByID(int id, String newMsgTxt) {
     try {
       Connection connection = ConnectionUtil.getConnection();
 
@@ -118,15 +118,13 @@ public class MessageDAO {
       ps.setInt(1, id);
       ps.setString(2, newMsgTxt);
 
-      if (ps.executeUpdate() > 0) {
-        return 
-      }
+      //TODO: there's gotta be a better option than using a wrapper class, or does void work?
+      return;
 
 
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
-    return null;
   }
 
 }

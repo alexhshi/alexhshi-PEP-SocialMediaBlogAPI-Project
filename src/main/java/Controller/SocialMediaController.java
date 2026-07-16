@@ -102,6 +102,16 @@ public class SocialMediaController {
     }
     private void updateMessagesByID(Context ctx) throws JsonProcessingException {
         int id = Integer.parseInt(ctx.pathParam("message_id"));
+        //TODO: get the new message
+        //Message newMsgTxtFullMsg = ctx.bodyAsClass(Message.class);
+        //String newMsgTxt = newMsgTxtFullMsg.getMessage_text();
+        String newMsgTxt = ctx.formParam("message_text");
 
+        Message newMsgOrNull = msgService.updateMessageByID(id, newMsgTxt);
+        if (newMsgOrNull != null) {
+            ctx.json(newMsgOrNull);
+        } else {
+            ctx.status(400);
+        }
     }
 }
