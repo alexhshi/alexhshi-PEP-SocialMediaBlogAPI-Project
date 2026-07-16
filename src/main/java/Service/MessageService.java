@@ -33,4 +33,10 @@ public class MessageService {
   public Message deleteMessageByID(int id) {
     return this.msgDAO.deleteMessageByID(id);
   }
+  public Message updateMessageByID(int id, String newMsgTxt) {
+    Message origMsg = this.msgDAO.getMessageByID(id);
+    if (origMsg != null && origMsg.getMessage_text().length() > 0 && origMsg.getMessage_text().length() <= 255) {
+      return this.msgDAO.updateMessagesByID(id, newMsgTxt);
+    }
+  }
 }

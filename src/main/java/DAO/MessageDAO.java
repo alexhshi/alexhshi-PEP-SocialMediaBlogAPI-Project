@@ -107,17 +107,20 @@ public class MessageDAO {
     return null;
   }
 
-  public Message updateMessagesByID(int id) {
+  public Message updateMessagesByID(int id, String newMsgTxt) {
     try {
       Connection connection = ConnectionUtil.getConnection();
 
-      String sql = "delete from message where message_id = ?";
+      String sql = "update message set message_text = ? where message_id = ?";
 
       PreparedStatement ps = connection.prepareStatement(sql);
 
       ps.setInt(1, id);
+      ps.setString(2, newMsgTxt);
 
-      ResultSet rs = ps.executeQuery();
+      if (ps.executeUpdate() > 0) {
+        return 
+      }
 
 
     } catch (SQLException e) {
