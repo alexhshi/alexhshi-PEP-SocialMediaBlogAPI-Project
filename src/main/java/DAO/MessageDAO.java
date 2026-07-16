@@ -77,27 +77,33 @@ public class MessageDAO {
   }
 
   public Message deleteMessageByID(int id) {
-    Message msg = new Message();
-    try {
-      Connection connection = ConnectionUtil.getConnection();
-
-      String sql = "delete from message where message_id = ?";
-
-      PreparedStatement ps = connection.prepareStatement(sql);
-
-      ps.setInt(1, id);
-
-      //TODO: does this contain the deleted msg?
-      ResultSet rs = ps.executeQuery();
-      while (rs.next()) {
-        msg = new Message(rs.getInt("message_id"), rs.getInt("posted_by"), rs.getString("message_text"), rs.getLong("time_posted_epoch"));
-        return msg;
-      }
-
-    } catch (SQLException e) {
-      System.out.println(e.getMessage());
+    //Message msg = new Message();
+    Message getMsg = this.getMessageByID(id);
+    if (getMsg != null) {
+      try {
+        Connection connection = ConnectionUtil.getConnection();
+  
+        String sql = "delete from message where message_id = ?";
+  
+        PreparedStatement ps = connection.prepareStatement(sql);
+  
+        ps.setInt(1, id);
+  
+        //TODO: does this contain the deleted msg? ans: seems not but idk?
+        /*
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+          msg = new Message(rs.getInt("message_id"), rs.getInt("posted_by"), rs.getString("message_text"), rs.getLong("time_posted_epoch"));
+          return msg;
+        }
+        */
+        ps.executeUpdate();
+        return getMsg;
+      } catch (SQLException e) {
+        System.out.println(e.getMessage());
+      }  
     }
-    return msg;
+    return null;
   }
 
   public Message updateMessagesByID(int id) {
