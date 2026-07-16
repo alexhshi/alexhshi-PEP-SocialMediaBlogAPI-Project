@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import Model.*;
-import Service.AccountService;
+import Service.*;
 
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller. The endpoints you will need can be
@@ -16,6 +16,7 @@ import Service.AccountService;
  */
 public class SocialMediaController {
     AccountService acctService;
+    MessageService msgService;
 
     public SocialMediaController() {
         this.acctService = new AccountService();
@@ -67,7 +68,12 @@ public class SocialMediaController {
     private void postMessageHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
         Message inputMsg = om.readValue(ctx.body(), Message.class);
-        Message addedMsg = msgService
+        Message addedMsg = msgService.addMessage(inputMsg);
+        if (addedMsg != null) {
+            ctx.json(om.writeValueAsString(addedMsg));
+        } else {
+            ctx.status(400);
+        }
     }
 
 
