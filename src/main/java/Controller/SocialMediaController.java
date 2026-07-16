@@ -32,7 +32,7 @@ public class SocialMediaController {
         app.get("example-endpoint", this::exampleHandler);
         app.post("/register", this::postRegisterHandler);
         app.post("/login", this::postLoginHandler);
-        app.post("/messages", this::postMessageHandler);
+        app.post("/messages", this::postMessagesHandler);
 
         return app;
     }
@@ -65,7 +65,7 @@ public class SocialMediaController {
             ctx.status(401);
         }
     }
-    private void postMessageHandler(Context ctx) throws JsonProcessingException {
+    private void postMessagesHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
         Message inputMsg = om.readValue(ctx.body(), Message.class);
         Message addedMsg = msgService.addMessage(inputMsg);
