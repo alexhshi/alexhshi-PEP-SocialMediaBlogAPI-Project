@@ -38,6 +38,7 @@ public class SocialMediaController {
         //TODO: finish delete
         app.delete("/messages/{message_id}", this::deleteMessagesByID);
         app.patch("/messages/{message_id}", this::updateMessagesByID);
+        app.get("/accounts/{account_id}/messages", this::getMessagesbyUser);
 
         return app;
     }
@@ -103,6 +104,7 @@ public class SocialMediaController {
     private void updateMessagesByID(Context ctx) throws JsonProcessingException {
         int id = Integer.parseInt(ctx.pathParam("message_id"));
         //TODO: get the new message
+        //TODO: there's gotta be a more elegant way of getting the message
         Message newMsgTxtFullMsg = ctx.bodyAsClass(Message.class);
         String newMsgTxt = newMsgTxtFullMsg.getMessage_text();
         //String newMsgTxt = ctx.formParam("message_text");
@@ -113,5 +115,9 @@ public class SocialMediaController {
         } else {
             ctx.status(400);
         }
+    }
+    private void getMessagesByUser(Context ctx) throws JsonProcessingException {
+        int id = Integer.parseInt(ctx.pathParam("account_id"));
+        ctx.json(msgService.getMessagesByUser)
     }
 }
