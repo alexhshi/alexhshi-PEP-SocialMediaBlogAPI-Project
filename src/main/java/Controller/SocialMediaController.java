@@ -35,6 +35,9 @@ public class SocialMediaController {
         app.post("/messages", this::postMessagesHandler);
         app.get("/messages", this::getMessagesHandler);
         app.get("/messages/{message_id}", this::getMessagesByID);
+        //TODO: finish delete
+        app.delete("/messages/{message_id}", this::deleteMessagesByID);
+        app.patch("/messages/{message_id}", this:updateMessagesByID);
 
         return app;
     }
@@ -89,5 +92,11 @@ public class SocialMediaController {
         }
 
     }
+    private void deleteMessagesByID(Context ctx) throws JsonProcessingException {
 
+    }
+    private void updateMessagesByID(Context ctx) throws JsonProcessingException {
+        int id = Integer.parseInt(ctx.pathParam("message_id"));
+        
+    }
 }
