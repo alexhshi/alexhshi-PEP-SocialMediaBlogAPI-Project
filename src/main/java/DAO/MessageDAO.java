@@ -55,7 +55,6 @@ public class MessageDAO {
   }
 
   public Message getMessageByID(int id) {
-    Message msg = new Message();
     try{
       Connection connection = ConnectionUtil.getConnection();
 
@@ -68,13 +67,13 @@ public class MessageDAO {
       ResultSet rs = ps.executeQuery();
 
       while (rs.next()) {
-        msg = new Message(rs.getInt("message_id"), rs.getInt("posted_by"), rs.getString("message_text"), rs.getLong("time_posted_epoch"));
+        Message msg = new Message(rs.getInt("message_id"), rs.getInt("posted_by"), rs.getString("message_text"), rs.getLong("time_posted_epoch"));
         return msg;
       }
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
-    return msg;
+    return null;
   }
 
 }

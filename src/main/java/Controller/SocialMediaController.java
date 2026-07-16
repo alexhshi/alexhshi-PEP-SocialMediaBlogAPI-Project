@@ -82,7 +82,12 @@ public class SocialMediaController {
     }
     private void getMessagesByID(Context ctx) throws JsonProcessingException {
         int id = Integer.parseInt(ctx.pathParam("message_id"));
-        ctx.json(msgService.getMessageByID(id));
+        //TODO: I think there should be a more elegant solution for empty but I don't know what it is
+        Message returnedMsg = msgService.getMessageByID(id);
+        if (returnedMsg != null) {
+            ctx.json(msgService.getMessageByID(id));
+        }
+
     }
 
 }
