@@ -18,4 +18,13 @@ public class AccountService {
       return null;
     }
   }
+
+  public Account getAccountByLogin(Account acct) {
+    Account retrievedAcct = this.acctDAO.getAccountByUsername(acct.getUsername());
+    if (retrievedAcct != null && retrievedAcct.getPassword().equals(acct.getPassword())) {
+      return retrievedAcct;
+    } else {
+      return null;
+    }
+  }
 }
