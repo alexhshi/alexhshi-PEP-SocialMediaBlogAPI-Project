@@ -81,7 +81,8 @@ public class SocialMediaController {
         ctx.json(msgService.getAllMessages());
     }
     private void getMessagesByID(Context ctx) throws JsonProcessingException {
-        
+        int id = Integer.parseInt(ctx.pathParam("message_id"));
+        ctx.json(msgService.getMessageByID(id));
     }
 
 }
