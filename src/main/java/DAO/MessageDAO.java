@@ -77,7 +77,7 @@ public class MessageDAO {
   }
 
   public Message deleteMessageByID(int id) {
-    //Message msg = new Message();
+    Message msg = new Message();
     Message getMsg = this.getMessageByID(id);
     if (getMsg != null) {
       try {
@@ -103,7 +103,7 @@ public class MessageDAO {
         System.out.println(e.getMessage());
       }  
     }
-    return null;
+    return msg;
   }
 
   public Message updateMessagesByID(int id) {
